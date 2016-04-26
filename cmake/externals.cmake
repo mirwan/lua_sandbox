@@ -171,3 +171,14 @@ if (OPENSSL_FOUND)
         INSTALL_ARGS ${INST_ARGS}
     )
 endif()
+
+externalproject_add(
+    librdkafka
+    GIT_REPOSITORY https://github.com/edenhill/librdkafka.git
+    GIT_TAG c51b83d9646e4ed030a47b975cd3caf908273f21
+    BUILD_IN_SOURCE 1
+    CONFIGURE_COMMAND ./configure --prefix=${EP_BASE}
+    BUILD_COMMAND make
+    INSTALL_COMMAND make install
+)
+add_dependencies(${LUA_PROJECT} librdkafka)
